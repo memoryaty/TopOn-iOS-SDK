@@ -49,11 +49,13 @@
 
 -(void) loadADWithInfo:(NSDictionary*)serverInfo localInfo:(NSDictionary*)localInfo completion:(void (^)(NSArray<NSDictionary *> *, NSError *))completion {
     if (NSClassFromString(@"GDTUnifiedInterstitialAd") != nil) {
+        //处理广点通代理回调
         _customEvent = [[ATGDTInterstitialCustomEvent alloc] initWithInfo:serverInfo localInfo:localInfo];
         _customEvent.requestCompletionBlock = completion;
         if ([serverInfo[@"unit_version"] integerValue] == 2) {
+            //广点通初始化
             _unifiedInterstitialAd = [[NSClassFromString(@"GDTUnifiedInterstitialAd") alloc] initWithPlacementId:serverInfo[@"unit_id"]];
-            _unifiedInterstitialAd.delegate = _customEvent;
+            _unifiedInterstitialAd.delegate = _customEvent;//GDTUnifiedInterstitialAdDelegate
             _unifiedInterstitialAd.videoAutoPlayOnWWAN = [serverInfo[@"video_autoplay"] integerValue] == 1 ? YES : NO;
             _unifiedInterstitialAd.videoMuted = [serverInfo[@"video_muted"] boolValue];
             if (serverInfo[@"video_duration"] != nil) { _unifiedInterstitialAd.maxVideoDuration = [serverInfo[@"video_duration"] integerValue]; }

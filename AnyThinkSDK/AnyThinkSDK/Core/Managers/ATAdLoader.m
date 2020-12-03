@@ -721,6 +721,8 @@ static NSString *const kAutoloadExtraInfoKey = @"extra_info";
         //Kick off the request
         __weak typeof(self) weakSelf = self;
         dispatch_async(dispatch_get_main_queue(), ^{
+            
+            //初始化第三方SDK并设置代理回调，返回的assets就是广告数据，由handleAssets保存到对应的广告类型manager的interstitialStorage，给展示时读取
             [adapter loadADWithInfo:adapterInfo localInfo:extra completion:^(NSArray<NSDictionary*> *assets, NSError *error) {
                 [ATLogger logMessage:[NSString stringWithFormat:@"\nRequest offer with network info:\n*****************************\n%@ \n*****************************", [ATGeneralAdAgentEvent logInfoWithAd:phAd event:error != nil ? ATGeneralAdAgentEventTypeRequestFailure : ATGeneralAdAgentEventTypeRequestSuccess extra:extra error:error]] type:ATLogTypeTemporary];
                 if ([assets count] > 0 && error == nil) {
