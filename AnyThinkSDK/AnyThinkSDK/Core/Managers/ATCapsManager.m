@@ -398,7 +398,7 @@ static NSString *const kUserDefaultsLoadCapsKey = @"com.anythink.UserDefaultsLoa
         return @(ret);
     }] boolValue];
 }
-
+//增加展示次数
 -(void)increaseCapWithPlacementID:(NSString*)placementID duration:(NSTimeInterval)duration {
     __weak typeof(self) weakSelf = self;
     [_loadCapsAccessor writeWithBlock:^{

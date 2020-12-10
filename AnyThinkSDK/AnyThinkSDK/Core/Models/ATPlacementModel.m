@@ -23,19 +23,19 @@ NSString *const kPlacementModelCustomDataKey = @"custom_data";
             if ([dictionary[kPlacementModelCustomDataKey] isKindOfClass:[NSDictionary class]]) { _associatedCustomData = [NSDictionary dictionaryWithDictionary:dictionary[kPlacementModelCustomDataKey]]; }
         }
         _format = [dictionary[@"format"] integerValue];
-        _adDeliverySwitch = [dictionary[@"ad_delivery_sw"] boolValue];
-        _groupID = [dictionary[@"gro_id"] integerValue];
+        _adDeliverySwitch = [dictionary[@"ad_delivery_sw"] boolValue];//广告投放开关
+        _groupID = [dictionary[@"gro_id"] integerValue];//流量分组？
         _refresh = [dictionary[@"refresh"] boolValue];
         _autoRefresh = [dictionary[@"auto_refresh"] boolValue];
-        _autoRefreshInterval = [dictionary[@"auto_refresh_time"] doubleValue] / 1000.0f;
+        _autoRefreshInterval = [dictionary[@"auto_refresh_time"] doubleValue] / 1000.0f; //20
         _maxConcurrentRequestCount = [dictionary[@"req_ug_num"] integerValue];
         _psID = dictionary[@"ps_id"];
         _sessionID = dictionary[@"session_id"];
         _showType = [dictionary[@"show_type"] integerValue] < 2 ? [dictionary[@"show_type"] integerValue] : 0;
         _unitCapsByDay = [dictionary[@"unit_caps_d"] integerValue] == -1 ? NSIntegerMax : [dictionary[@"unit_caps_d"] integerValue];
         _unitCapsByHour = [dictionary[@"unit_caps_h"] integerValue] == -1 ? NSIntegerMax : [dictionary[@"unit_caps_h"] integerValue];
-        _unitPacing = [dictionary[@"unit_pacing"] doubleValue];
-        _wifiAutoSwitch = [dictionary[@"wifi_auto_sw"] boolValue];
+        _unitPacing = [dictionary[@"unit_pacing"] doubleValue];//广告pacing，如果返回>=0，则广告不展示，log为广告展示过于频繁，两次AD间隔小于广告中的设置
+        _wifiAutoSwitch = [dictionary[@"wifi_auto_sw"] boolValue];//wifi自动播放视频
         _offerLoadingTimeout = [dictionary[@"s_t"] doubleValue] / 1000.0f;
         _statusValidDuration = [dictionary[@"l_s_t"] doubleValue];
         _asid = dictionary[@"asid"];
@@ -48,9 +48,9 @@ NSString *const kPlacementModelCustomDataKey = @"custom_data";
             _extra = [[ATPlacementModelExtra alloc] initWithDictionary:tppsDict];
         }
         _updateTolerateInterval = [dictionary[@"ps_ct_out"] doubleValue] / 1000.0f;
-        _cacheValidDuration = [dictionary[@"ps_ct"] doubleValue] / 1000.0f;
+        _cacheValidDuration = [dictionary[@"ps_ct"] doubleValue] / 1000.0f;//缓存有效时间
         _cacheDate = dictionary[kPlacementModelCacheDateKey];
-        _cachesPlacementSetting = [dictionary[@"pucs"] boolValue];
+        _cachesPlacementSetting = [dictionary[@"pucs"] boolValue];//pucs 是否缓存
         _loadFailureInterval = [dictionary[@"load_fail_wtime"] doubleValue] / 1000.0f;
         _loadCap = [dictionary[@"load_cap"] integerValue];
         _loadCapDuration = [dictionary[@"load_cap_time"] doubleValue] / 1000.0f;

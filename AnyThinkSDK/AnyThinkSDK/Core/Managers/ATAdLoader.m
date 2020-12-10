@@ -468,8 +468,9 @@ static NSString *const kATHeaderBiddingResponseListFailedListKey = @"header_bidd
             SendAgentEvent(mutableInactiveInfos);
             
             if (([activeUnitGroups count] + [activeHBUnitGroups count] + [activeS2SHBUnitGroups count]) > 0) {
+                //记录展示次数
                 [[ATCapsManager sharedManager] increaseCapWithPlacementID:placementModel.placementID duration:placementModel.loadCapDuration];
-                
+                //广告价格排序
                 NSArray<ATUnitGroupModel*>* rankedAndShuffledUnitGroups = [ATAdLoader rankAndShuffleUnitGroups:activeUnitGroups placementModel:placementModel requestID:requestID];
                 
                 //tk15
@@ -478,6 +479,7 @@ static NSString *const kATHeaderBiddingResponseListFailedListKey = @"header_bidd
                 }
                 
                 ATWaterfall *waterfall = [[ATWaterfall alloc] initWithUnitGroups:rankedAndShuffledUnitGroups placementID:placementModel.placementID requestID:requestID];
+                //completion->seriallyLoadOfferWithWaterfall->loadOfferWithRequestID->第三方SDK
                 [[ATWaterfallManager sharedManager] attachWaterfall:waterfall completion:^(ATWaterfallWrapper *waterfallWrapper, ATWaterfall *waterfall, ATWaterfall *headerBiddingWaterfall, ATWaterfall *finalWaterfall, BOOL finished, NSDate *loadStartDate) {
                     waterfallWrapper.headerBiddingFired = [activeHBUnitGroups count] > 0;
                     //Configure default adsource load

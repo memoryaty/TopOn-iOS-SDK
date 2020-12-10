@@ -22,7 +22,7 @@
 @property(nonatomic, readonly) NSMutableArray<ATUnitGroupModel*>* requestSentUnitGroups;
 @property(nonatomic, readonly) NSMutableArray<ATUnitGroupModel*>* requestFilledUnitGroups;
 @end
-
+//广告分层
 @implementation ATWaterfall
 -(instancetype) initWithUnitGroups:(NSArray<ATUnitGroupModel*>*)unitGroups placementID:(NSString*)placementID requestID:(NSString*)requestID {
     self = [super init];

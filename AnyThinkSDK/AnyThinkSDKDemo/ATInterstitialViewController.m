@@ -20,7 +20,7 @@ NSString *const kStartAppVideoPlacement = @"StartApp(Video)";
 NSString *const kFyberPlacement = @"Fyber";
 NSString *const kSigmobRVIntPlacement = @"Sibmob(RV)";
 
-static NSString *const kGDTPlacementID = @"b5bacad8ea3036";
+static NSString *const kGDTPlacementID = @"b5ed846877b692";
 static NSString *const kTTPlacementID = @"b5bacad7373b89";
 static NSString *const kTTVideoPlacementID = @"b5bacad80a0fb1";
 static NSString *const kAdmobPlacementID = @"b5bacad6860972";
@@ -169,7 +169,7 @@ static NSString *const kHeliumPlacementID = @"b5f583ec12143f";
     [alert addAction:action];
     [self presentViewController:alert animated:YES completion:nil];
     
-//    //check load status
+//    //check load status  TopOn SDK V5.7.2及以上版本支持，新增API方法
 //    [[ATAdManager sharedManager] checkInterstitialLoadStatusForPlacementID:_placementIDs[_name]];
 }
 
