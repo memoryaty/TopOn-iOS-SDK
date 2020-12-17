@@ -21,16 +21,16 @@ extern NSString *const kUnitGroupBidInfoBidTokenUsedFlagKey;
 -(instancetype) initWithDictionary:(NSDictionary *)dictionary {
     self = [super initWithDictionary:dictionary];
     if (self != nil) {
-        _adapterClassString = dictionary[@"adapter_class"];//@"ATAdmobSplashAdapter"
+        _adapterClassString = dictionary[@"adapter_class"];//@"ATAdmobSplashAdapter"广告SDK类名
         _adapterClass = NSClassFromString(_adapterClassString);
-        _capByDay = [dictionary[@"caps_d"] integerValue] == -1 ? NSIntegerMax : [dictionary[@"caps_d"] integerValue];
-        _capByHour = [dictionary[@"caps_h"] integerValue] == -1 ? NSIntegerMax : [dictionary[@"caps_h"] integerValue];
-        _networkCacheTime = [dictionary[@"nw_cache_time"] doubleValue];
+        _capByDay = [dictionary[@"caps_d"] integerValue] == -1 ? NSIntegerMax : [dictionary[@"caps_d"] integerValue];//广告展示频次控制/天
+        _capByHour = [dictionary[@"caps_h"] integerValue] == -1 ? NSIntegerMax : [dictionary[@"caps_h"] integerValue];//广告展示频次控制/小时
+        _networkCacheTime = [dictionary[@"nw_cache_time"] doubleValue];//缓存有效时间
         _networkFirmID = [dictionary[@"nw_firm_id"] integerValue];
         _networkRequestNum = [dictionary[@"nw_req_num"] integerValue];
-        _networkDataTimeout = [dictionary[@"n_d_t"] doubleValue];
-        _networkTimeout = [dictionary[@"nw_timeout"] doubleValue] / 1000.0f;
-        _skipIntervalAfterLastLoadingFailure = [dictionary[@"nx_req_time"] doubleValue] / 1000.0f;
+        _networkDataTimeout = [dictionary[@"n_d_t"] doubleValue];//  5.1.0 双回调数据超时(topon备注)
+        _networkTimeout = [dictionary[@"nw_timeout"] doubleValue] / 1000.0f;//请求第三方广告超时时间
+        _skipIntervalAfterLastLoadingFailure = [dictionary[@"nx_req_time"] doubleValue] / 1000.0f;//下发0
         _skipIntervalAfterLastBiddingFailure = [dictionary[@"bid_fail_interval"] doubleValue] / 1000.0f;
         _showingInterval = [dictionary[@"pacing"] doubleValue];
         _unitGroupID = [NSString stringWithFormat:@"%@", dictionary[@"ug_id"]];
@@ -39,9 +39,9 @@ extern NSString *const kUnitGroupBidInfoBidTokenUsedFlagKey;
         _ecpmLevel = [dictionary[@"ecpm_level"] integerValue];
         _content = [NSJSONSerialization JSONObjectWithData:[dictionary[@"content"] dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:nil];//@{@"unit_id":@"ca-app-pub-3940256099942544/1033173712",@"orientation":@(2)}
         _adSize = [Utilities sizeFromString:[_content[@"size"] length] > 0 ? _content[@"size"] : [ATUnitGroupModel defaultSizeWithNetworkFirmID:_networkFirmID]];
-        _headerBiddingRequestTimeout = [dictionary[@"hb_timeout"] doubleValue];
+        _headerBiddingRequestTimeout = [dictionary[@"hb_timeout"] doubleValue];//请求头部竞价超时时间
         _bidTokenTime = [dictionary[@"hb_t_c_t"] doubleValue] / 1000.0f;
-        _headerBidding = [dictionary[@"header_bidding"] boolValue];
+        _headerBidding = [dictionary[@"header_bidding"] boolValue];//头部竞价,目前TopOn平台支持Mintegral的应用内头部竞价,这部分可以忽略
         _clickTkAddress = dictionary[@"t_c_u"];
         _clickTkDelayMin = [dictionary[@"t_c_u_min_t"] integerValue];
         _clickTkDelayMax = [dictionary[@"t_c_u_max_t"] integerValue];
